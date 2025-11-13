@@ -11,9 +11,74 @@
  * @returns {string} containing number converted to output system
  */
 export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
-  //TODO code
+  // decimal --> binary convertion
+  // inicializace vstupu
+  const vstup = inputNumber;
+  let vystup = "";
+  // kontrola, zdali jsme v režimu decimálního vstupu
+  if (inputNumberSystem !==10) {
+    console.log("ERROR: inputNumberSystem is not decimal");
+    // Pauza 5 sekund, ukončit program.
+    setTimeout(() => {
+    return null;
+    }, 5000);
+  }
+  // kontrola, zdali jsme v řežimu binárního výstupu
+  if (outputNumberSystem !==2 ) {
+    console.log("ERROR: outputNumberSystem is not binary");
+    // Pauza 5 sekund, ukončit program.
+    setTimeout(() => {
+    return null;
+    }, 5000);
+  }
+  // validace vstupu
+  if (isNaN(vstup)) {
+    console.log("ERROR: Unexpected characters in input.")
+    // Pauza 5 sekund, ukončit program.
+    setTimeout(() => {
+    return null;
+    }, 5000);
+  }
+  // Výpočet maximálně potřebných mocnin dvojky
+  let maxBits;
+  let i = 0;
+  while (maxBits === undefined) {
+    if (2**i >= vstup) {
+      maxBits = i;
+    } else {
+      i = i + 1
+      }
+  }
+  let cislo = vstup;
+  // convertion
+  const cyklus = maxBits;
+  for (let i = 0; i <= cyklus; i++) {
+    if (cislo >= 2**maxBits) {
+      vystup = vystup + "1";
+      cislo = cislo - 2**maxBits;
+      maxBits = maxBits-1;
+    } else {
+      maxBits = maxBits-1;
+      // ošetření, že nezačínáme nulou, aby se dobře provedly automatické testy
+      if (vystup!=="") {
+        vystup = vystup + "0";
+      }
+    }
+  }
+  // ošetření nuly
+  if (vstup==0) {
+    vystup = "0";
+  }
+  // vypsat výsledek do konzole
+  console.log("Číslo v desítkové soustavě " + vstup + " je číslo " + vystup + " v soustavě dvojkové");
+  // let dtoOut = exMain(vystup, 10, 2);
   //let dtoOut = exMain(inputNumber, inputNumberSystem, outputNumberSystem);
-  return dtoOut;
+
+  // ošetření, že nezačínáme nulou, aby se dobře provedly automatické testy
+  // if (vystup.startsWith("0")) {
+  //  vystup.shift();
+  // }
+  return vystup;
 }
 
 /**
@@ -22,7 +87,7 @@ export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
  * @returns {Array} array of numbers refering to permitted input systems
  */
 export function permittedInputSystems() {
-	return [10, 2];
+	return [10];
 }
 
 /**
@@ -31,5 +96,5 @@ export function permittedInputSystems() {
  * @returns {Array} array of numbers refering to permitted output systems
  */
 export function permittedOutputSystems() {
-	return [10, 2];
+	return [2];
 }
