@@ -71,13 +71,6 @@ export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
   }
   // vypsat výsledek do konzole
   console.log("Číslo v desítkové soustavě " + vstup + " je číslo " + vystup + " v soustavě dvojkové");
-  // let dtoOut = exMain(vystup, 10, 2);
-  //let dtoOut = exMain(inputNumber, inputNumberSystem, outputNumberSystem);
-
-  // ošetření, že nezačínáme nulou, aby se dobře provedly automatické testy
-  // if (vystup.startsWith("0")) {
-  //  vystup.shift();
-  // }
   return vystup;
 }
 
@@ -97,4 +90,5 @@ export function permittedInputSystems() {
  */
 export function permittedOutputSystems() {
 	return [2];
+
 }
